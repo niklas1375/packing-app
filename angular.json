@@ -72,7 +72,8 @@
               "browserTarget": "packing-app:build:production"
             },
             "development": {
-              "browserTarget": "packing-app:build:development"
+              "browserTarget": "packing-app:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
