@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 
 import { PackingHelperService } from 'src/app/services/packing-helper.service';
@@ -11,21 +12,16 @@ import { ValueHelpItem } from 'src/app/types/value-help-item';
   styleUrls: ['./packing-list.component.scss'],
 })
 export class PackingListComponent implements OnInit {
-  tripTypeGroup = this._formBuilder.group({
-    tripTypeSelection: ['', ]
+  tripBasicsGroup = this._formBuilder.group({
+    tripName: ['', Validators.required],
+    tripStart: ['', Validators.required],
+    tripEnd: ['', Validators.required],
   });
-  accomodationGroup = this._formBuilder.group({
-
-  });
-  transportGroup = this._formBuilder.group({
-
-  });
-  activitiesGroup = this._formBuilder.group({
-
-  });
-  weatherGroup = this._formBuilder.group({
-
-  });
+  tripTypeGroup = this._formBuilder.group({});
+  accomodationGroup = this._formBuilder.group({});
+  transportGroup = this._formBuilder.group({});
+  activitiesGroup = this._formBuilder.group({});
+  weatherGroup = this._formBuilder.group({});
 
   accomodations$!: Observable<ValueHelpItem[]>;
   activities$!: Observable<ValueHelpItem[]>;
@@ -33,7 +29,10 @@ export class PackingListComponent implements OnInit {
   tripTypes$!: Observable<ValueHelpItem[]>;
   weathers$!: Observable<ValueHelpItem[]>;
 
-  constructor(private _formBuilder: FormBuilder,private packingHelper: PackingHelperService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private packingHelper: PackingHelperService
+  ) {}
 
   ngOnInit(): void {
     this.accomodations$ = this.packingHelper.getAccomodations();
@@ -41,5 +40,9 @@ export class PackingListComponent implements OnInit {
     this.transports$ = this.packingHelper.getTransports();
     this.tripTypes$ = this.packingHelper.getTripTypes();
     this.weathers$ = this.packingHelper.getWeathers();
+  }
+
+  radioButtonSelection(stepper: MatStepper): void {
+    stepper.next();
   }
 }

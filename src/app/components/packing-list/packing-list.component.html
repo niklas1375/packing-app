@@ -1,52 +1,96 @@
 <mat-stepper linear="true" orientation="vertical" #stepper>
+  <mat-step [stepControl]="tripBasicsGroup">
+    <form [formGroup]="tripBasicsGroup">
+      <ng-template matStepLabel>Basics</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Name der Reise</mat-label>
+        <input
+          matInput
+          placeholder="Name der Reise"
+          formControlName="tripName"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Reisedaten</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input formControlName="tripStart" matStartDate placeholder="Start" />
+          <input formControlName="tripEnd" matEndDate placeholder="Ende" />
+        </mat-date-range-input>
+        <mat-hint>DD.MM.YYYY – DD.MM.YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <mat-error *ngIf="tripBasicsGroup.controls.tripStart.hasError('matStartDateInvalid')">
+            Ungültiges Startdatum
+        </mat-error>
+        <mat-error *ngIf="tripBasicsGroup.controls.tripEnd.hasError('matEndDateInvalid')">
+            Ungültiges Enddatum
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
   <mat-step [stepControl]="tripTypeGroup">
     <form [formGroup]="tripTypeGroup">
-      <ng-template matStepLabel>Select the trip type</ng-template>
+      <ng-template matStepLabel>Art der Reise</ng-template>
       <mat-radio-group
         aria-label="Select an option"
         *ngFor="let tripType of tripTypes$ | async"
+        (change)="radioButtonSelection(stepper)"
         class="verticalRadioGroup"
       >
         <mat-radio-button value="{{ tripType.key }}">{{
           tripType.name
         }}</mat-radio-button>
       </mat-radio-group>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="accomodationGroup">
     <form [formGroup]="accomodationGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput />
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
+      <ng-template matStepLabel>Unterkunft</ng-template>
+      <mat-radio-group
+        aria-label="Select an option"
+        *ngFor="let accomodation of accomodations$ | async"
+        (change)="radioButtonSelection(stepper)"
+        class="verticalRadioGroup"
+      >
+        <mat-radio-button value="{{ accomodation.key }}">{{
+          accomodation.name
+        }}</mat-radio-button>
+      </mat-radio-group>
     </form>
   </mat-step>
   <mat-step [stepControl]="transportGroup">
     <form [formGroup]="transportGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput />
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
+      <ng-template matStepLabel>Anreise</ng-template>
+      <mat-radio-group
+        aria-label="Select an option"
+        *ngFor="let transport of transports$ | async"
+        (change)="radioButtonSelection(stepper)"
+        class="verticalRadioGroup"
+      >
+        <mat-radio-button value="{{ transport.key }}">{{
+          transport.name
+        }}</mat-radio-button>
+      </mat-radio-group>
     </form>
   </mat-step>
   <mat-step [stepControl]="activitiesGroup">
     <form [formGroup]="activitiesGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput />
-      </mat-form-field>
+      <ng-template matStepLabel>Geplante Aktivitäten</ng-template>
+      <section>
+        <ul>
+          <li *ngFor="let activity of activities$ | async">
+            <mat-checkbox [checked]="activity.checked">
+              {{ activity.name }}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </section>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
@@ -54,11 +98,16 @@
   </mat-step>
   <mat-step [stepControl]="weatherGroup">
     <form [formGroup]="weatherGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput />
-      </mat-form-field>
+      <ng-template matStepLabel>Erwartetes Wetter</ng-template>
+      <section>
+        <ul>
+          <li *ngFor="let weather of weathers$ | async">
+            <mat-checkbox [checked]="weather.checked">
+              {{ weather.name }}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </section>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
