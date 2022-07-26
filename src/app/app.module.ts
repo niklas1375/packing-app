@@ -8,6 +8,7 @@ import { PackingListComponent } from './components/packing-list/packing-list.com
 import { SummaryComponent } from './components/summary/summary.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +31,7 @@ import { CustomDateAdapter } from './util/custom-date-adapter';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
