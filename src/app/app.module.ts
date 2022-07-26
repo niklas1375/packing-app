@@ -12,11 +12,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  DateAdapter,
+  MatNativeDateModule,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { CustomDateAdapter } from './util/custom-date-adapter';
 
 @NgModule({
   declarations: [AppComponent, PackingListComponent, SummaryComponent],
@@ -41,6 +46,10 @@ import { MatButtonModule } from '@angular/material/button';
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'de-DE',
+    },
+    {
+      provide: DateAdapter,
+      useClass: CustomDateAdapter,
     },
   ],
   bootstrap: [AppComponent],
