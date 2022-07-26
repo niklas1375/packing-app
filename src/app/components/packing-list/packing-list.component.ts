@@ -12,7 +12,7 @@ import { ValueHelpItem } from 'src/app/types/value-help-item';
 })
 export class PackingListComponent implements OnInit {
   tripTypeGroup = this._formBuilder.group({
-
+    tripTypeSelection: ['', ]
   });
   accomodationGroup = this._formBuilder.group({
 

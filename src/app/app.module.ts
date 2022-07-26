@@ -8,9 +8,12 @@ import { PackingListComponent } from './components/packing-list/packing-list.com
 import { SummaryComponent } from './components/summary/summary.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, PackingListComponent, SummaryComponent],
@@ -21,7 +24,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserAnimationsModule,
     MatStepperModule,
     MatFormFieldModule,
+    MatInputModule,
     ReactiveFormsModule,
+    MatRadioModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

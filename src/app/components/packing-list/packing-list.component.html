@@ -1,16 +1,16 @@
-<mat-stepper linear="true" #stepper>
+<mat-stepper linear="true" orientation="vertical" #stepper>
   <mat-step [stepControl]="tripTypeGroup">
     <form [formGroup]="tripTypeGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input
-          matInput
-          placeholder="Last name, First name"
-          formControlName="firstCtrl"
-          required
-        />
-      </mat-form-field>
+      <ng-template matStepLabel>Select the trip type</ng-template>
+      <mat-radio-group
+        aria-label="Select an option"
+        *ngFor="let tripType of tripTypes$ | async"
+        class="verticalRadioGroup"
+      >
+        <mat-radio-button value="{{ tripType.key }}">{{
+          tripType.name
+        }}</mat-radio-button>
+      </mat-radio-group>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
@@ -21,12 +21,7 @@
       <ng-template matStepLabel>Fill out your name</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input
-          matInput
-          placeholder="Last name, First name"
-          formControlName="firstCtrl"
-          required
-        />
+        <input matInput />
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -38,12 +33,7 @@
       <ng-template matStepLabel>Fill out your name</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input
-          matInput
-          placeholder="Last name, First name"
-          formControlName="firstCtrl"
-          required
-        />
+        <input matInput />
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -55,12 +45,7 @@
       <ng-template matStepLabel>Fill out your name</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input
-          matInput
-          placeholder="Last name, First name"
-          formControlName="firstCtrl"
-          required
-        />
+        <input matInput />
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -72,12 +57,7 @@
       <ng-template matStepLabel>Fill out your name</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input
-          matInput
-          placeholder="Last name, First name"
-          formControlName="firstCtrl"
-          required
-        />
+        <input matInput />
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
