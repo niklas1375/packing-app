@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { PackingHelperService } from 'src/app/services/packing-helper.service';
+import { UserChoice } from 'src/app/types/user-choice';
 import { ValueHelpItem } from 'src/app/types/value-help-item';
 
 @Component({
@@ -69,14 +70,14 @@ export class PackingListComponent implements OnInit {
     });
   }
 
-  _collectSelections(): any {
+  _collectSelections(): UserChoice {
     return {
-      tripname: this.tripBasicsGroup.controls.tripNameCtrl.value,
-      tripstart: this.tripBasicsGroup.controls.tripStartCtrl.value,
-      tripend: this.tripBasicsGroup.controls.tripEndCtrl.value,
-      triptype: this.tripTypeGroup.controls.tripTypeCtrl.value,
-      accomodation: this.accomodationGroup.controls.accomodationCtrl.value,
-      transport: this.transportGroup.controls.transportCtrl.value,
+      tripname: "" + this.tripBasicsGroup.controls.tripNameCtrl.value,
+      tripstart: "" + this.tripBasicsGroup.controls.tripStartCtrl.value,
+      tripend: "" + this.tripBasicsGroup.controls.tripEndCtrl.value,
+      triptype: "" + this.tripTypeGroup.controls.tripTypeCtrl.value,
+      accomodation: "" + this.accomodationGroup.controls.accomodationCtrl.value,
+      transport: "" + this.transportGroup.controls.transportCtrl.value,
       activities: this._getSelectionsFromCheckboxes(this.activitiesGroup),
       weather: this._getSelectionsFromCheckboxes(this.weatherGroup),
     };
