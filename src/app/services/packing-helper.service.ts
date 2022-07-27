@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { ValueHelpItem } from '../types/value-help-item';
 import { catchError, Observable, of } from 'rxjs';
+import { UserChoice } from '../types/user-choice';
+import { PackingList } from '../types/packing-list';
 
 @Injectable({
   providedIn: 'root',
@@ -31,16 +33,45 @@ export class PackingHelperService {
     return this._getValueHelp('/weather');
   }
 
-  compilePackingList() {}
+  compilePackingList(userChoices: UserChoice): Observable<PackingList> {
+    return this.http
+      .post<PackingList>(this.BASE_PATH + '/compile', userChoices)
+      .pipe(
+        catchError(
+          this.handleError<PackingList>('compile packing list', undefined)
+        )
+      );
+  }
 
-  submitTodoistList() {}
+  submitTodoistList(
+    packinglist: PackingList,
+    tripname: string,
+    tripstart: string,
+    tripend: string
+  ) {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const tripstartDate = new Date(tripstart).getTime();
+    const tripendDate = new Date(tripend).getTime();
+    const diffDays = Math.round(
+      Math.abs((tripstartDate - tripendDate) / oneDay)
+    );
+
+    return this.http
+      .post<string>(this.BASE_PATH + '/submitTasks', {
+        tripName: tripname,
+        tripLength: diffDays,
+        tripBeginDate: tripstart,
+        packingList: packinglist,
+      })
+      .pipe(
+        catchError(this.handleError<string>('submit tasks to Todoist', ''))
+      );
+  }
 
   private _getValueHelp(path: string): Observable<ValueHelpItem[]> {
     return this.http
       .get<ValueHelpItem[]>(this.BASE_PATH + path)
-      .pipe(
-        catchError(this.handleError<ValueHelpItem[]>('getAccomodations', []))
-      );
+      .pipe(catchError(this.handleError<ValueHelpItem[]>(`get ${path}`, [])));
   }
 
   /**
