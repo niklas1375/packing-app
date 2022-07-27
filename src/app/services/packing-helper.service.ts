@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { ValueHelpItem } from '../types/value-help-item';
 import { catchError, Observable, of } from 'rxjs';
@@ -49,11 +49,10 @@ export class PackingHelperService {
     tripstart: string,
     tripend: string
   ) {
-    const oneDay = 24 * 60 * 60 * 1000;
     const tripstartDate = new Date(tripstart).getTime();
     const tripendDate = new Date(tripend).getTime();
     const diffDays = Math.round(
-      Math.abs((tripstartDate - tripendDate) / oneDay)
+      Math.abs(((tripstartDate - tripendDate) / 24) * 60 * 60 * 1000)
     );
 
     return this.http
