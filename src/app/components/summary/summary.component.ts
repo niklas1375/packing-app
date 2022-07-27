@@ -9,5 +9,7 @@ import { PackingHelperService } from 'src/app/services/packing-helper.service';
 export class SummaryComponent implements OnInit {
   constructor(private packingHelper: PackingHelperService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.dir(history.state.data)
+  }
 }
