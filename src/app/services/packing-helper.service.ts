@@ -48,22 +48,22 @@ export class PackingHelperService {
     tripname: string,
     tripstart: string,
     tripend: string
-  ) {
+  ): Observable<any> {
     const tripstartDate = new Date(tripstart).getTime();
     const tripendDate = new Date(tripend).getTime();
     const diffDays = Math.round(
-      Math.abs(((tripstartDate - tripendDate) / 24) * 60 * 60 * 1000)
+      Math.abs((tripstartDate - tripendDate) / (24 * 60 * 60 * 1000))
     );
 
     return this.http
-      .post<string>(this.BASE_PATH + '/submitTasks', {
+      .post<any>(this.BASE_PATH + '/submitTasks', {
         tripName: tripname,
         tripLength: diffDays,
         tripBeginDate: tripstart,
         packingList: packinglist,
       })
       .pipe(
-        catchError(this.handleError<string>('submit tasks to Todoist', ''))
+        catchError(this.handleError<any>('submit tasks to Todoist', undefined))
       );
   }
 

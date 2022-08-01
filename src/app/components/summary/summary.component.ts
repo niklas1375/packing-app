@@ -23,6 +23,8 @@ export class SummaryComponent implements OnInit {
   choices!: UserChoice;
   compiledList$!: Observable<PackingList>;
   categoryArray$!: Observable<PackingCategory[]>;
+  submitClicked = false;
+  submitDone = false;
 
   constructor(
     private packingHelper: PackingHelperService,
@@ -63,10 +65,28 @@ export class SummaryComponent implements OnInit {
           });
         })
       );
-      this.categoryArray$.subscribe((compiledList) => {
-        this.dataSource.data = compiledList;
+      this.categoryArray$.subscribe((compiledArray: PackingCategory[]) => {
+        this.dataSource.data = compiledArray;
       });
     }
+  }
+
+  submitTasks(event: any): void {
+    // disable button
+    this.submitClicked = true;
+    // send tasks
+    this.compiledList$.subscribe((compiledList: PackingList) => {
+      this.packingHelper
+        .submitTodoistList(
+          compiledList,
+          this.choices.tripname,
+          this.choices.tripstart,
+          this.choices.tripend
+        )
+        .subscribe(() => {
+          this.submitDone = true;
+        });
+    });
   }
 
   private _transformer = (node: CategoryNode, level: number) => {
@@ -79,7 +99,7 @@ export class SummaryComponent implements OnInit {
 
   treeControl = new FlatTreeControl<FlatNode>(
     (node) => node.level,
-    (node) => node.expandable,
+    (node) => node.expandable
   );
 
   treeFlattener = new MatTreeFlattener(

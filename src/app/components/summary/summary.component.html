@@ -27,3 +27,9 @@
     <!-- ({{node.content?.length}}) -->
   </mat-tree-node>
 </mat-tree>
+<br>
+<button mat-raised-button color="{{submitClicked ? '' : 'primary'}}" *ngIf="!submitDone" (click)="submitTasks($event)">
+    <span *ngIf="!submitClicked">Tasks erstellen</span>
+    <mat-spinner *ngIf="submitClicked && !submitDone" diameter="30"></mat-spinner>
+</button>
+<span *ngIf="submitDone">Tasks erstellt!</span>
