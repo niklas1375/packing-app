@@ -28,6 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(localeDe);
 
@@ -51,6 +53,12 @@ registerLocaleData(localeDe);
     MatTreeModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     MatDatepickerModule,
