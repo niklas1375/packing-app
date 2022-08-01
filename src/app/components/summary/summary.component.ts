@@ -46,8 +46,8 @@ export class SummaryComponent implements OnInit {
         this.dataSource.data = compiledList;
       });
     } else {
-      // this.router.navigate(['/']);
-      this.choices = {
+      this.router.navigate(['/']);
+      /* this.choices = {
         tripname: 'Zugspitze 2.0',
         tripstart: '2022-08-12T10:00:00.000Z',
         tripend: '2022-08-16T10:00:00.000Z',
@@ -67,7 +67,7 @@ export class SummaryComponent implements OnInit {
       );
       this.categoryArray$.subscribe((compiledArray: PackingCategory[]) => {
         this.dataSource.data = compiledArray;
-      });
+      }); */
     }
   }
 
