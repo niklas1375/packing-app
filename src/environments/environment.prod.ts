@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://packing-list.miroll.cloud/api'
+  apiUrl: 'http://packing-helper:3000/api'
 };
