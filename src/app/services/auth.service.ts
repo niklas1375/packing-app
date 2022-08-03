@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, of, Observable } from 'rxjs';
+import { LoginReply } from '../types/login-reply';
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +9,11 @@ import { catchError, of, Observable } from 'rxjs';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  login(): Observable<any> {
+  login(): Observable<LoginReply> {
     return this.http
-      .post<any>('/api/auth/login', {})
+      .post<LoginReply>('/api/auth/login', {})
       .pipe(
-        catchError(this.handleError<any>('submit tasks to Todoist', undefined))
+        catchError(this.handleError<LoginReply>('login', undefined))
       );
   }
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { LoginReply } from './types/login-reply';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,12 @@ export class AppComponent {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.login().subscribe();
+    this.authService.login().subscribe((loginReply: LoginReply) => {
+      if (loginReply.loggedIn) {
+        return;
+      } else {
+        window.location.href = `https://todoist.com/oauth/authorize?client_id=${loginReply.client_id}&scope=${loginReply.scopes}&state=${loginReply.state}`;
+      }
+    });
   }
 }
