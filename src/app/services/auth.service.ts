@@ -1,20 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of, Observable } from 'rxjs';
+import { catchError, of, map, Observable, firstValueFrom } from 'rxjs';
 import { LoginReply } from '../types/login-reply';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  lastLoginReply!: LoginReply;
+
   constructor(private http: HttpClient) {}
 
-  login(): Observable<LoginReply> {
-    return this.http
-      .post<LoginReply>('/api/auth/login', {})
-      .pipe(
-        catchError(this.handleError<LoginReply>('login', undefined))
+  async login(): Promise<void> {
+    if (!this.lastLoginReply) {
+      this.lastLoginReply = await firstValueFrom(
+        this.http
+          .post<LoginReply>('/api/auth/login', {})
+          .pipe(catchError(this.handleError<LoginReply>('login', undefined)))
       );
+    }
+
+    window.location.href = `https://todoist.com/oauth/authorize?client_id=${this.lastLoginReply.client_id}&scope=${this.lastLoginReply.scopes}&state=${this.lastLoginReply.state}`;
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.http.post<LoginReply>('/api/auth/login', {}).pipe(
+      map((loginReply: LoginReply) => {
+        this.lastLoginReply = loginReply;
+        return loginReply.loggedIn;
+      })
+    );
   }
 
   /**
