@@ -13,6 +13,7 @@ import { PackingList } from 'src/app/types/packing-list';
 import { UserChoice } from 'src/app/types/user-choice';
 import { PackingCategory } from 'src/app/types/packing-category';
 import { CategoryNode, FlatNode } from 'src/app/types/tree-nodes';
+import { UserSelectionService } from 'src/app/services/user-selection.service';
 
 @Component({
   selector: 'app-summary',
@@ -28,12 +29,14 @@ export class SummaryComponent implements OnInit {
 
   constructor(
     private packingHelper: PackingHelperService,
-    private router: Router
+    private router: Router,
+    private userSelectionService: UserSelectionService
   ) {}
 
   ngOnInit(): void {
-    if (history.state.data) {
-      this.choices = history.state.data;
+    const choicesProbable = this.userSelectionService.getUserChoice();
+    if (choicesProbable) {
+      this.choices = choicesProbable;
       this.compiledList$ = this.packingHelper.compilePackingList(this.choices);
       this.categoryArray$ = this.compiledList$.pipe(
         map((packinglist: PackingList) => {

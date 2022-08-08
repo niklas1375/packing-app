@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { PackingHelperService } from 'src/app/services/packing-helper.service';
+import { UserSelectionService } from 'src/app/services/user-selection.service';
 import { UserChoice } from 'src/app/types/user-choice';
 import { ValueHelpItem } from 'src/app/types/value-help-item';
 
@@ -45,7 +46,8 @@ export class PackingListComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private packingHelper: PackingHelperService,
-    private router: Router
+    private router: Router,
+    private userSelectionService: UserSelectionService
   ) {}
 
   ngOnInit(): void {
@@ -65,19 +67,18 @@ export class PackingListComponent implements OnInit {
   }
 
   showSummary(): void {
-    this.router.navigate(['/summary'], {
-      state: { data: this._collectSelections() },
-    });
+    this.userSelectionService.setUserChoice(this._collectSelections());
+    this.router.navigate(['/summary']);
   }
 
   _collectSelections(): UserChoice {
     return {
-      tripname: "" + this.tripBasicsGroup.controls.tripNameCtrl.value,
-      tripstart: "" + this.tripBasicsGroup.controls.tripStartCtrl.value,
-      tripend: "" + this.tripBasicsGroup.controls.tripEndCtrl.value,
-      triptype: "" + this.tripTypeGroup.controls.tripTypeCtrl.value,
-      accomodation: "" + this.accomodationGroup.controls.accomodationCtrl.value,
-      transport: "" + this.transportGroup.controls.transportCtrl.value,
+      tripname: '' + this.tripBasicsGroup.controls.tripNameCtrl.value,
+      tripstart: '' + this.tripBasicsGroup.controls.tripStartCtrl.value,
+      tripend: '' + this.tripBasicsGroup.controls.tripEndCtrl.value,
+      triptype: '' + this.tripTypeGroup.controls.tripTypeCtrl.value,
+      accomodation: '' + this.accomodationGroup.controls.accomodationCtrl.value,
+      transport: '' + this.transportGroup.controls.transportCtrl.value,
       activities: this._getSelectionsFromCheckboxes(this.activitiesGroup),
       weather: this._getSelectionsFromCheckboxes(this.weatherGroup),
     };
