@@ -1,4 +1,4 @@
 # cd to directory
 git pull
-docker build -t packing-list .
-docker service update --force --image packing-list:latest localstack_packing-list
+docker build -t packing-app .
+docker service update --force --image packing-app:latest localstack_packing-app
