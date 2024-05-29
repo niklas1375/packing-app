@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
@@ -31,43 +31,37 @@ import { MatProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/m
 
 registerLocaleData(localeDe);
 
-@NgModule({
-  declarations: [AppComponent, PackingListComponent, SummaryComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatTreeModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-  ],
-  providers: [
-    MatDatepickerModule,
-    MatNativeDateModule,
-    {
-      provide: MAT_DATE_LOCALE,
-      useValue: 'de',
-    },
-    {
-      provide: LOCALE_ID,
-      useValue: 'de',
-    },
-    {
-      provide: DateAdapter,
-      useClass: CustomDateAdapter,
-    },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent, PackingListComponent, SummaryComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatTreeModule,
+        MatIconModule,
+        MatProgressSpinnerModule], providers: [
+        MatDatepickerModule,
+        MatNativeDateModule,
+        {
+            provide: MAT_DATE_LOCALE,
+            useValue: 'de',
+        },
+        {
+            provide: LOCALE_ID,
+            useValue: 'de',
+        },
+        {
+            provide: DateAdapter,
+            useClass: CustomDateAdapter,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
