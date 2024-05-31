@@ -24,6 +24,7 @@ export class PackingListComponent implements OnInit {
     tripNameCtrl: ['', Validators.required],
     tripStartCtrl: ['', Validators.required],
     tripEndCtrl: ['', Validators.required],
+    isAbroadCtrl: [false],
   });
   tripTypeGroup = this._formBuilder.group({
     tripTypeCtrl: ['', Validators.required],
@@ -79,6 +80,7 @@ export class PackingListComponent implements OnInit {
       transport: '' + this.transportGroup.controls.transportCtrl.value,
       activities: this._getSelectionsFromCheckboxes(this.activitiesGroup),
       weather: this._getSelectionsFromCheckboxes(this.weatherGroup),
+      isAbroad: this.tripBasicsGroup.controls.isAbroadCtrl.value || false,
     };
   }
 

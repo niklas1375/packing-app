@@ -7,4 +7,5 @@ export interface UserChoice {
   transport: string;
   activities: string[];
   weather: string[];
+  isAbroad: boolean;
 }

@@ -43,6 +43,10 @@
           Ungültiges Enddatum
         </mat-error>
       </mat-form-field>
+      <br />
+      <mat-slide-toggle formControlName="isAbroadCtrl" color="primary">
+        Auslandsreise?
+      </mat-slide-toggle>
       <div>
         <button mat-button matStepperNext>Weiter</button>
       </div>
@@ -74,7 +78,9 @@
           <li *ngFor="let accomodation of accomodations$ | async">
             <mat-checkbox
               [checked]="accomodation.checked"
-              [formControl]="newFormControl(accomodation.key, this.accomodationGroup)"
+              [formControl]="
+                newFormControl(accomodation.key, this.accomodationGroup)
+              "
             >
               {{ accomodation.name }}
             </mat-checkbox>

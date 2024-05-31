@@ -3,8 +3,14 @@
     flex-direction: column;
     // margin: 15px 0;
 }
+
 .verticalRadioOption {
     margin-top: 8px;
+}
+
+mat-slide-toggle {
+    margin: 8px 0;
+    display: block;
 }
 
 ul {
