@@ -51,7 +51,8 @@ export class PackingHelperService {
   ): Observable<any> {
     const tripstartDate = new Date(tripstart).getTime();
     const tripendDate = new Date(tripend).getTime();
-    const diffDays = Math.round(
+    // add one day for start day
+    const diffDays = 1 + Math.round(
       Math.abs((tripstartDate - tripendDate) / (24 * 60 * 60 * 1000))
     );
 
