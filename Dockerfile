@@ -6,6 +6,7 @@ RUN npm ci && npm run build
 
 # stage 2
 FROM docker.io/nginx:alpine
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./nginx.config /etc/nginx/conf.d/default.conf
 COPY --from=packing-app-build /app/dist/packing-app/browser /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
