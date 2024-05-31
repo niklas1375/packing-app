@@ -93,9 +93,13 @@ export class SummaryComponent implements OnInit {
   }
 
   private _transformer = (node: CategoryNode, level: number) => {
+    const nodeName =
+      !!node.content && node.content.length > 0
+        ? node.name + ` (${node.content?.length})`
+        : node.name;
     return {
       expandable: !!node.content && node.content.length > 0,
-      name: node.name + ` (${node.content?.length})`,
+      name: nodeName,
       level: level,
     };
   };
