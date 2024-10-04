@@ -1,4 +1,14 @@
 export interface PackingItem {
   name: string;
-  dayModifier?: number;
+  category: string;
+  dayMultiplier?: number;
+  dayThreshold?: number;
+  relevantForWeather?: string[];
+  onlyIfWeekday?: boolean;
+  onlyIfAbroad?: boolean;
+  // positive / negative number of days relative to trip begin date
+  dueShift?: number;
+  afterReturn?: boolean;
+  additionalLabels?: string[];
+  addTripNameToTask?: boolean;
 }
