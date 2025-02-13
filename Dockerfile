@@ -6,8 +6,8 @@ RUN npm ci && npm run build
 
 # stage 2
 FROM docker.io/node:lts AS packing-admin-build
-WORKDIR /app/../packing-admin
-COPY . .
+WORKDIR /app
+COPY ../packing-admin .
 RUN npm ci && npm run build
 
 # stage 3
