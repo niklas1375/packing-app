@@ -10,7 +10,7 @@ WORKDIR /app/../packing-admin
 COPY . .
 RUN npm ci && npm run build
 
-# stage 2
+# stage 3
 FROM docker.io/nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
