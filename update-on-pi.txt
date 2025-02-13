@@ -1,4 +1,6 @@
-# cd to directory
-git pull
-docker build -t packing-app .
+cd /home/pi/dev/node/packing-list
+git -C packing-app pull
+git -C packing-admin pull
+cp packing-app/Dockerfile frontend.Dockerfile
+docker build -t packing-app -f frontend.Dockerfile .
 docker service update --force --image packing-app:latest localstack_packing-app
