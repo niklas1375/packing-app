@@ -15,9 +15,10 @@ import { UserChoice } from 'src/app/types/user-choice';
 import { ValueHelpItem } from 'src/app/types/value-help-item';
 
 @Component({
-  selector: 'app-packing-list',
-  templateUrl: './packing-list.component.html',
-  styleUrls: ['./packing-list.component.scss'],
+    selector: 'app-packing-list',
+    templateUrl: './packing-list.component.html',
+    styleUrls: ['./packing-list.component.scss'],
+    standalone: false
 })
 export class PackingListComponent implements OnInit {
   tripBasicsGroup = this._formBuilder.group({
